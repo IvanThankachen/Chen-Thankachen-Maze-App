@@ -21,7 +21,9 @@ public class Maze
         Scanner scan = new Scanner(System.in);
 
         String rows = scan.next();
+        System.out.println("The rows: " + rows);
         String cols = scan.next();
+        System.out.println("The columns: " + cols);
 
         int r = Integer.valueOf(rows);
         int c = Integer.valueOf(cols);
@@ -102,12 +104,17 @@ public class Maze
         
         
         }
-
+        /*
+         * resets the array - clears the maze
+         * void
+         * no parameters
+         */
         public void reset()
         {
             for(int i = 0, j= 0; i < maze.length && j < maze[0].length; i++,j++)
             {
-                maze[i][j] = maze_2[i][j];
+                maze[i][j].setValue(0);
+                // should work but we know it's probably wrong
             }
         }
 
