@@ -18,11 +18,13 @@ public class Maze
 
     public boolean loadMaze(String fname)
     {
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(new File (fname));
 
-        String rows = scan.next();
+        int rows = scan.nextInt();
+        System.out.println("Do you see this?");
         System.out.println("The rows: " + rows);
-        String cols = scan.next();
+        int cols = scan.nextInt();
+        System.out.println("Do you see this also?");
         System.out.println("The columns: " + cols);
 
         int r = Integer.valueOf(rows);
