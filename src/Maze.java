@@ -1,48 +1,51 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.*;
 
 public class Maze
 {
     
-    private Square[][] maze;
+    public Square[][] maze;
     private Square[][] maze_2 = maze; // In order to reset the maze.
     private Square start = null;
     private Square end = null;
+    private int numRows, numCols;
 
     public Maze()
     {
         
     }
 
-    public boolean loadMaze(String fname)
+    public boolean loadMaze(String fname) throws FileNotFoundException
     {
-        Scanner scan = new Scanner(new File (fname));
+        try
+        {
+        Scanner scan = new Scanner(new File(fname));
 
         int rows = scan.nextInt();
-        System.out.println("Do you see this?");
-        System.out.println("The rows: " + rows);
         int cols = scan.nextInt();
-        System.out.println("Do you see this also?");
-        System.out.println("The columns: " + cols);
 
-        int r = Integer.valueOf(rows);
-        int c = Integer.valueOf(cols);
+        this.maze = new Square[rows][cols];
 
-        this.maze = new Square[r][c];
-
-        for (int row = 0; row < r; r++)
+        for (int row = 0; row < rows; rows++)
         {
-            for (int col = 0; col < c; col++)
+            for (int col = 0; col < cols; cols++)
             {
                 maze[row][col] = null; // setting everything to null
             }
         }
-
         return true; // done loading
+        }
+
+        catch (Exception e)
+        {
+            System.out.println("Incorrect file format");
+            return false;
+        }
 
     }
+    
 
     public ArrayList<Square> getNeighbors(Square sq)
     {
@@ -118,6 +121,23 @@ public class Maze
                 maze[i][j].setValue(0);
                 // should work but we know it's probably wrong
             }
+        }
+
+        public String toString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for( int i=0; i < maze.length; i++ )
+            {
+                for(int j = 0; j < maze[0].length; j++)
+                {
+                    sb.append(maze[i][j]);
+                }
+    
+                sb.append("\n");
+            }
+
+            return (new String(sb));
         }
 
 }
