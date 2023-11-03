@@ -7,7 +7,7 @@ public class Maze
 {
     
     public Square[][] maze;
-    private Square[][] maze_2 = maze; // In order to reset the maze.
+    //private Square[][] maze_2 = maze; // In order to reset the maze.
     private Square start = null;
     private Square end = null;
     private int numRows, numCols;
@@ -25,6 +25,8 @@ public class Maze
 
         int rows = scan.nextInt();
         int cols = scan.nextInt();
+        System.out.println("what");
+        System.out.println("Rows: " + rows + "," + "Columns " + cols );
 
         this.maze = new Square[rows][cols];
 
@@ -32,7 +34,10 @@ public class Maze
         {
             for (int col = 0; col < cols; cols++)
             {
-                maze[row][col] = null; // setting everything to null
+                int type = scan.nextInt();
+                System.out.println("Type is: " + type);
+                maze[row][col] = new Square(row, col, type);
+                System.out.println("This is the square: " + maze[row][col]);
             }
         }
         return true; // done loading
@@ -51,26 +56,22 @@ public class Maze
     {
         ArrayList<Square> neighbor = new ArrayList<Square>();
         {
-            if (sq.getRow()-1 >= 0) //Condition true as long as row is positive.
+            if(sq.getRow()-1 >= 0 && maze[sq.getRow()-1][sq.getCol()] != null)
             {
                 neighbor.add(maze[sq.getRow()-1][sq.getCol()]);
             }
-
-            if(sq.getCol() - 1 >= 0) //Condition true as long as column is positive.
-            {
-                neighbor.add(maze[sq.getRow()][sq.getCol()-1]);
-            }
-
-            if(sq.getRow()+1 < maze.length) //Condition true as long as row doesn't exceed the total amount of rows.
-            {
-                neighbor.add(maze[sq.getRow()+1][sq.getCol()]);
-            }
-
-            if(sq.getCol() + 1 < maze[0].length)  //Condition true as long as column doesn't exceed the total amount of columns.
+            if(sq.getCol()+1 < numCols && maze[sq.getRow()][sq.getCol()+1] != null)
             {
                 neighbor.add(maze[sq.getRow()][sq.getCol()+1]);
             }
-
+            if(sq.getRow()+1 < numRows && maze[sq.getRow()+1][sq.getCol()] != null)
+            {
+                neighbor.add(maze[sq.getRow()+1][sq.getCol()]);
+            }
+            if(sq.getCol()-1 >= 0 && maze[sq.getRow()][sq.getCol()-1] != null)
+            {
+                neighbor.add(maze[sq.getRow()][sq.getCol()-1]);
+            }
             return neighbor;
         }
     }

@@ -61,5 +61,7 @@ public class Square {
         {
             return("E");
         }
+
+        return("Non");
     }
 }

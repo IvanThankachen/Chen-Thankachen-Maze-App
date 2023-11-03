@@ -12,9 +12,8 @@ public class MazeTest {
             System.out.println(loadMazeTest());
         } catch (Exception e){}
         
-        Maze newMaze = new Maze();
-        String testMaze = new String("C:\\Users\\afchen\\Athena Chen - Software Engineering\\data-structures\\.github\\Chen-Thankachen-Maze-App\\src\\maze-1");
-    
+        System.out.println(m.maze);
+
         // neighbor tests
         ArrayList<Square> neighborTests = new ArrayList<>();
         neighborTests = neighborsCorners();
@@ -53,7 +52,9 @@ public class MazeTest {
     }
 
     static private ArrayList<Square> neighborsCorners (){
-        return m.getNeighbors(m.maze[0][0]);
+        System.out.println(m.maze[4][4]);
+        System.out.println(m.maze);
+        return m.getNeighbors(m.maze[4][4]);
     }
 
     static private ArrayList<Square> neighborsEdge (){
