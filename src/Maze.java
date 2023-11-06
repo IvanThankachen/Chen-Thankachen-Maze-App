@@ -30,16 +30,25 @@ public class Maze
 
         this.maze = new Square[rows][cols];
 
-        for (int row = 0; row < rows; rows++)
+        for (int row = 0; row < rows; row++)
         {
-            for (int col = 0; col < cols; cols++)
+            for (int col = 0; col < cols; col++)
             {
                 int type = scan.nextInt();
                 System.out.println("Type is: " + type);
                 maze[row][col] = new Square(row, col, type);
-                System.out.println("This is the square: " + maze[row][col]);
+                if(type == 2)
+                    start = maze[row][col];
+                if(type == 3)
+                {
+                    end = maze[row][col];
+                }
+                
             }
+
         }
+
+        System.out.println(maze);
         return true; // done loading
         }
 
@@ -78,17 +87,8 @@ public class Maze
 
         public Square getStart()
         {
-            for (int i = 0, j = 0 ; i < maze.length && j < maze[0].length;i++,j++)
-            {
-                if(maze[i][j].getType() == 2)
-                {
-                    start = new Square (i,j,maze[i][j].getType());
-                }
+           
 
-                
-
-
-            }
             return start;
 
             
@@ -96,20 +96,9 @@ public class Maze
 
         public Square getEnd()
         {
-            for (int i = 0, j = 0 ; i < maze.length && j < maze[0].length;i++,j++)
-            {
-               if(maze[i][j].getType() == 3)
-                {
-                    end = new Square (i,j,maze[i][j].getType());
-                }
-
-                
-            }
             return end;
-
-        
-        
         }
+        
         /*
          * resets the array - clears the maze
          * void

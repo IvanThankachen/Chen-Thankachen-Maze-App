@@ -20,17 +20,17 @@ public class MazeTest {
         
         // corners
         for (Square a : neighborTests)
-            System.out.println(a);
+            System.out.println("Corners: "+ a);
 
         // edge
         neighborTests = neighborsEdge();
         for (Square a : neighborTests)
-            System.out.println(a);
+            System.out.println("Edges: " + a);
 
         // corner
         neighborTests = neighborsMiddle();
         for (Square a : neighborTests)
-            System.out.println(a);
+            System.out.println("Middle: "+ a);
 
         // start
         System.out.println("Start: " + m.getStart());
