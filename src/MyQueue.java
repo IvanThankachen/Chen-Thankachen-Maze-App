@@ -54,9 +54,9 @@ public class MyQueue implements QueueADT
 
     public void clear()
     {
-        first.data = null;
-        first.next = last;
-        last.data = null;
+       first = null;
+       last = null;
+       count = 0;
     }
 
 
