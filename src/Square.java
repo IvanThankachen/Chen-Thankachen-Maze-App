@@ -1,11 +1,15 @@
 public class Square {
     private int row, col, type, value;
+    private Square prev;
+    private boolean marked;
     public Square (int row, int col, int type)
     {
         this.row = row;
         this.col = col;
         this.type = type;
         this.value = 0;
+        this.prev = null;
+        this.marked = false;
     }
 
     public int getRow()
@@ -31,6 +35,16 @@ public class Square {
     public void setValue(int value)
     {
         this.value = value;
+    }
+
+    public Square getPrevious()
+    {
+        return prev;
+    }
+    
+    public boolean getMarked()
+    {
+        return marked;
     }
 
     public String toString()
