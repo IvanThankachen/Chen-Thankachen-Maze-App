@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 public abstract class MazeSolver
 {
-    static Maze m;
+    static Maze m = new Maze();
     String path = "";
 
     public MazeSolver (Maze maze)
     {
         m = maze;
+        System.out.println(m);
     }
 
     // Create an empty worklist.

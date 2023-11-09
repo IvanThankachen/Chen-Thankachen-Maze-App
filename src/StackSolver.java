@@ -1,23 +1,31 @@
+import java.io.FileNotFoundException;
 
 public class StackSolver extends MazeSolver
 {
     MyStack worklist;
-    public StackSolver(Maze maze)
+    public static Maze maze;
+    public static Maze mazey = new Maze();
+
+    public StackSolver(Maze mazey)
     {
-        super(m);
+        super(mazey);
+        System.out.println(mazey);
         
     }   
 
     public void makeEmpty()
     {
+        System.out.println("Can you hear this");
         worklist = new MyStack();
-        worklist.push(m.getStart());
+        worklist.push(mazey.getStart());
+        System.out.println(worklist.top());
     }
 
     public boolean isEmpty()
     {
         if(worklist.size() == 0)
         {
+            System.out.println("Can you dee this?");
             System.out.print(worklist.size());
             return true;
         }
@@ -37,8 +45,16 @@ public class StackSolver extends MazeSolver
 
     public static void main(String[] args)
     {
-        StackSolver s = new StackSolver(m);
-        s.isEmpty();
+        StackSolver s = new StackSolver(mazey);
+        try {
+            mazey.loadMaze("src//maze-2");
+            s.makeEmpty();
+            s.isEmpty();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 
 }
