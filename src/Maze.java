@@ -52,7 +52,7 @@ public class Maze
         return true; // done loading
         }
 
-        catch (Exception e)
+        catch (FileNotFoundException e)
         {
             System.out.println("Incorrect file format");
             return false;
@@ -61,7 +61,7 @@ public class Maze
     }
     
 
-    public ArrayList<Square> getNeighbors(Square sq)
+    public ArrayList<Square> getNeighbors(Square sq) 
     {
         ArrayList<Square> neighbor = new ArrayList<Square>();
         {

@@ -1,7 +1,7 @@
 public class Square {
     private int row, col, type, value;
-    private Square prev;
-    private boolean marked;
+    public Square prev;
+    public boolean marked;
     public Square (int row, int col, int type)
     {
         this.row = row;

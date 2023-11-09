@@ -1,7 +1,7 @@
 public class QueueSolver extends MazeSolver {
 
     MyQueue worklist;
-    public QueueSolver()
+    public QueueSolver(Maze maze)
     {
         super(m);
         
