@@ -1,16 +1,12 @@
+import static org.junit.Assert.fail;
 import java.util.ArrayList;
+import java.util.Stack;
 public abstract class MazeSolver
 {
-    static Maze m = new Maze();
-    String path = "";
-
-    public MazeSolver (Maze maze)
-    {
-        m = maze;
-        System.out.println(m);
-    }
-
-    // Create an empty worklist.
+    
+    String path;
+    private Maze maze;
+    boolean done = false;
     public abstract void makeEmpty();
     
     // Checks if the worklist is empty and returns true if empty, false otherwise.
@@ -22,54 +18,110 @@ public abstract class MazeSolver
     // Returns the next item from the worklist.
     public abstract Square next();
 
+    public MazeSolver (Maze maze)
+    {
+        this.maze = maze;
+        System.out.println(maze);
+        makeEmpty();
+        add(maze.getStart());
+        
+    }
+
+    // Create an empty worklist.
+    
+
     public boolean isSolved()
     {
-        if(isEmpty() || next().getType() == 3)
+        if(isEmpty() || path == null)
+        {
+            return false;
+        }
+        else
         {
             return true;
-
         }
-
-        return false;
+       
 
     }
 
     public String getPath()
     {
-        return path;
+        if(path == null)
+        {
+            return("There's no solution :(");
+        }
+        else
+        {
+            return path;
+        }
     }
 
     public Square step()
     {
-        while(!isEmpty())
+        Square current = null;
+        if(!isEmpty())
         {
-            Square sqah = next();
-            if(sqah.getType()!=3)
+
+        current = next();
+        System.out.println(current.getRow()+","+current.getCol());
+        if(current.getType()==3)
+        {
+            Stack<Square> pathing = new Stack<>();
+            pathing.push(current);
+            while(current.getPrevious().getType()!=2)
             {
-                ArrayList<Square> neighbors = m.getNeighbors(sqah);
-                for(Square w : neighbors)
-                {
-                    if(w.getMarked() != true && w.getType() != 1)
-                    {
-                        add(w);
-                        w.prev = sqah;
-                        w.marked = true;
-                    }
-                    
-                    
-                }
+                pathing.push(current.getPrevious());
+                current = current.getPrevious();
             }
-            else
+            pathing.push(maze.getStart());
+
+            while(pathing.isEmpty()==false)
             {
-                System.out.println(getPath());
-                return sqah;
+                Square tempo = pathing.pop();
+                tempo.setValue(3);
+                path+="["+tempo.getRow()+","+tempo.getCol()+"]";
+
+                
+            }
+            
+
+            return current;
+
+            
+        }
+        ArrayList<Square> neighbors = maze.getNeighbors(current);
+        for(Square neigh:neighbors)
+        {
+            if(neigh.getValue() == 0)
+            {
+                neigh.setPrevious(current);
+                neigh.setValue(1);
+                add(neigh);
+                neigh.setMarked(true);
+            }
+
+            if(current.getType() == 3)
+            {
+                neigh.setPrevious(current);
+                add(neigh);
+                done = true;
+                isSolved();
+
+            }
+
+            if(current.getValue() == 1)
+            {
+                current.setValue(2);
             }
         }
-            
-        return null;
-            
-            
+
         
+        
+
+     }
+     return current;
+    
+       
     }
 
     public void solve()
@@ -78,7 +130,12 @@ public abstract class MazeSolver
         {
             step();
         }
+        getPath();
     }
+
+    
+
+    
 
 
 

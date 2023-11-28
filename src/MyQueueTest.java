@@ -2,7 +2,7 @@ public class MyQueueTest
 {
     public static void main(String args[])
     {
-        MyQueue test = new MyQueue();
+        MyQueue<Integer> test = new MyQueue<>();
         System.out.println(test.isEmpty()); // return true.
         test.enqueue(3);
         test.enqueue(4);

@@ -3,7 +3,7 @@ public class MyStackTest
    
    public static void main (String[] args)
    {
-        MyStack stack_test = new MyStack();
+        MyStack<Integer> stack_test = new MyStack<>();
         //Should be 3 4
         stack_test.push(3);
         stack_test.push(4);

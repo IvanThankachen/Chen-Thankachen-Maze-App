@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.lang.*;
 
 public class Maze
 {
@@ -10,7 +11,8 @@ public class Maze
     //private Square[][] maze_2 = maze; // In order to reset the maze.
     private Square start = null;
     private Square end = null;
-    private int numRows, numCols;
+    private int rows,cols;
+    private int numRows,numCols;
 
     public Maze()
     {
@@ -23,8 +25,8 @@ public class Maze
         {
         Scanner scan = new Scanner(new File(fname));
 
-        int rows = scan.nextInt();
-        int cols = scan.nextInt();
+         rows = scan.nextInt();
+         cols = scan.nextInt();
         System.out.println("what");
         System.out.println("Rows: " + rows + "," + "Columns " + cols );
 
@@ -37,12 +39,7 @@ public class Maze
                 int type = scan.nextInt();
                 System.out.println("Type is: " + type);
                 maze[row][col] = new Square(row, col, type);
-                if(type == 2)
-                    start = maze[row][col];
-                if(type == 3)
-                {
-                    end = maze[row][col];
-                }
+                
                 
             }
 
@@ -63,24 +60,40 @@ public class Maze
 
     public ArrayList<Square> getNeighbors(Square sq) 
     {
+        System.out.println("["+getStart().getRow()+","+getStart().getCol()+"]");
+        int neighbors = 0;
         ArrayList<Square> neighbor = new ArrayList<Square>();
         {
-            if(sq.getRow()-1 >= 0 && maze[sq.getRow()-1][sq.getCol()] != null)
+            if(sq.getRow() -1 >= 0 && maze[sq.getRow()-1][sq.getCol()].getType() != 1 )
             {
+                System.out.println("["+sq.getRow()+","+sq.getCol()+"]");
+                System.out.println("-------------");
                 neighbor.add(maze[sq.getRow()-1][sq.getCol()]);
+                neighbors+=1;
+                
+                
             }
-            if(sq.getCol()+1 < numCols && maze[sq.getRow()][sq.getCol()+1] != null)
+            if(sq.getCol()+1 < cols  && maze[sq.getRow()][sq.getCol()+1].getType() != 1 )
             {
+                System.out.println("["+sq.getRow()+","+sq.getCol()+"]");
                 neighbor.add(maze[sq.getRow()][sq.getCol()+1]);
+                neighbors+=1;
+                
             }
-            if(sq.getRow()+1 < numRows && maze[sq.getRow()+1][sq.getCol()] != null)
+            if(sq.getRow()+1 < rows  && maze[sq.getRow()+1][sq.getCol()].getType() != 1 )
             {
+                System.out.println("["+sq.getRow()+","+sq.getCol()+"]");
                 neighbor.add(maze[sq.getRow()+1][sq.getCol()]);
+                neighbors+=1;
             }
-            if(sq.getCol()-1 >= 0 && maze[sq.getRow()][sq.getCol()-1] != null)
+            if(sq.getCol() - 1 >= 0  &&  maze[sq.getRow()][sq.getCol()-1].getType() != 1 )
             {
+                System.out.println("["+sq.getRow()+","+sq.getCol()+"]");
                 neighbor.add(maze[sq.getRow()][sq.getCol()-1]);
+                neighbors+=1;
             }
+            System.out.println(neighbors);
+            neighbors = 0;
             return neighbor;
         }
     }
@@ -88,15 +101,41 @@ public class Maze
         public Square getStart()
         {
            
+           for (int row = 0; row < rows; row++)
+           {
+            
+            for (int col = 0; col < cols; col++)
+            {
+               if(maze[row][col].getType() == 2)
+                return start = maze[row][col];
 
-            return start;
+                
+                
+            }
+           }
+
+           return null;
+           
 
             
         }
 
         public Square getEnd()
         {
-            return end;
+           for (int row = 0; row < rows; row++)
+           {
+            
+            for (int col = 0; col < cols; col++)
+            {
+               if(maze[row][col].getType() == 3)
+                return end = maze[row][col];
+
+                
+                
+            }
+           }
+
+           return null;
         }
         
         /*
@@ -106,22 +145,24 @@ public class Maze
          */
         public void reset()
         {
-            for(int i = 0, j= 0; i < maze.length && j < maze[0].length; i++,j++)
+           for(int i = 0; i < rows; i++)
+           {
+            for(int j=0; j < cols; j++)
             {
                 maze[i][j].setValue(0);
-                // should work but we know it's probably wrong
             }
+           }
         }
 
         public String toString()
         {
             StringBuilder sb = new StringBuilder();
 
-            for( int i=0; i < maze.length; i++ )
+            for( int i=0; i < rows; i++ )
             {
-                for(int j = 0; j < maze[0].length; j++)
+                for(int j = 0; j < cols; j++)
                 {
-                    sb.append(maze[i][j]);
+                    sb.append(this.maze[i][j]);
                 }
     
                 sb.append("\n");

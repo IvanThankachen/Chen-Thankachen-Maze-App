@@ -1,94 +1,57 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
-public class MyStack implements StackADT
+public class MyStack<T> implements StackADT<T>
 {
+     ArrayList<T> stackie;
 
-    private Node first;
-    int count = 0;
+     public MyStack()
+     {
+        stackie = new ArrayList<>();
+     }
 
-    public MyStack()
-    {
-        first = null;
-    }
+     public void push(T item)
+     {
+        stackie.add(item);
+     }
 
+     public T pop()
+     {
+        if(stackie.size() == 0)
+            throw new NoSuchElementException();
+        else
+        {
+            return stackie.remove(stackie.size()-1);
+        }
+     }
 
-    public void push(Object element)
-    {
-        Node newNode =  new Node();
-        newNode.data = element;
-        newNode.next = first;
-        this.first = newNode;
-        count++;
-    }
+     public T top()
+     {
+         if(stackie.size() == 0)
+            throw new NoSuchElementException();
+        else
+        {
+            return stackie.get(stackie.size()-1);
+        }
+     }
 
-    public Object pop()
-    {
-        Object element = this.first.data;
-        this.first = this.first.next;
-        count--;
-        return element;
+     public int size()
+     {
+        return stackie.size();
+     }
 
-    }
-
-    public Object top()
-    {
-        Object element = this.first.data;
-        return element;
-    }
-
-    public int size()
-    {
-        return count;
-    }
-    
-    public boolean isEmpty()
-    {   
-        if (count == 0)
+     public boolean isEmpty()
+     {
+        if(stackie.size() == 0)
             return true;
         else
-        {
             return false;
-        }
-    }
+     }
 
-
-    public void clear()
-    {
-        if (count > 0)
-        {
-            for (int i = count; count != 0; i--)
-            {
-                Object element = this.first.data;
-                this.first = this.first.next;
-                count--;
-            }
-        }
-
-        else
-        {
-            System.out.println("There is nothing to clear out!");
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    static class Node
-    {
-        public Object data;
-        public Node next;
-
-    }
+     public void clear()
+     {
+        stackie = new ArrayList<T>();
+     }
 
 }
 

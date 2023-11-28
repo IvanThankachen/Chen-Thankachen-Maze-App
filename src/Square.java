@@ -37,11 +37,23 @@ public class Square {
         this.value = value;
     }
 
+    
+
     public Square getPrevious()
     {
         return prev;
     }
-    
+    public Square setPrevious(Square new_prev)
+    {
+        prev = new_prev;
+        return prev;
+    }
+
+    public boolean setMarked(boolean temp)
+    {
+         marked = temp;
+         return marked;
+    }
     public boolean getMarked()
     {
         return marked;

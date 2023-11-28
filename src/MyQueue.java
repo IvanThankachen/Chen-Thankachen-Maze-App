@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class MyQueue implements QueueADT
+public class MyQueue<T> implements QueueADT<T>
 {
 
      private Node first = null;
@@ -12,27 +12,36 @@ public class MyQueue implements QueueADT
        
 
     }
-    public void enqueue(Object element)
+    public void enqueue(T item)
     {
         Node newNode = new Node();
-        newNode.data = element;
-        newNode.next = this.first;
-        this.first = newNode;
+        newNode.data = item;
+        if (first == null)
+        {
+            first = newNode;
+            last = newNode;
+
+        }
+        else
+        {
+            last.next = newNode;
+            last = newNode;
+        }
         count++;
 
     }
 
-    public Object dequeue()
+    public T dequeue()
     {
         if (first == null)
             throw new  NoSuchElementException();
-            Object prev = first.data;
-            first = first.next;
-            count--;
-            return prev;
+        Node newNode = first;
+        first = first.next;
+        count--;
+        return newNode.data;
     }
 
-    public Object front()
+    public T front()
     {
         if (first == null)
             throw new NoSuchElementException();
@@ -62,9 +71,9 @@ public class MyQueue implements QueueADT
 
 
 
-    static class Node
+    private class Node
     {
-        public Object data;
+        public T data;
         public Node next;
     }
 }
